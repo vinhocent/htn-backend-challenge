@@ -1,8 +1,8 @@
 import db from "../database/db.js";
 
 export const getSkills = async (req, res) => {
-    const minFrequency = req.query.min_frequency;
-    const maxFrequency = req.query.max_frequency;
+    const { min_frequency, max_frequency } = req.query;
+
     let query = `
         SELECT s.name AS skill_name, COUNT(us.userID) AS num_users
         FROM skills s
@@ -10,26 +10,26 @@ export const getSkills = async (req, res) => {
         GROUP BY s.name
     `;
 
-    if (minFrequency == undefined) {
-        minFrequency = 0
+    if (min_frequency !== undefined || max_frequency !== undefined) {
+        query += ' HAVING ';
+        if (min_frequency !== undefined) {
+            query += `COUNT(us.userID) >= ${min_frequency}`;
+        }
+        if (min_frequency !== undefined && max_frequency !== undefined) {
+            query += ' AND ';
+        }
+        if (max_frequency !== undefined) {
+            query += `COUNT(us.userID) <= ${max_frequency}`;
+        }
     }
 
-    if (maxFrequency !== undefined) {
-      maxFrequency = Number.MAX_SAFE_INTEGER
-    }
-    query += `HAVING (COUNT(us.skillID) >= ${minFrequency} AND COUNT(us.skillID) <= ${maxFrequency})`
-
-
-    db.all(
-        query, [minFrequency,maxFrequency],
-        (err, rows) => {
-            if (err) {
+    db.all(query, (err, rows) => {
+        if (err) {
             console.error('Error retrieving skills:', err);
             res.status(500).send('Internal Server Error');
             return;
-            }
-
-            res.json(rows);
         }
-    )
+
+        res.json(rows);
+    });
 }
