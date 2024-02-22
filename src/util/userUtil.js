@@ -2,7 +2,6 @@
 import db from "../database/db.js"
 
 
-
 export const getAllUsers = async (req, res) => {
   const query = `
       SELECT u.name AS user_name, u.email, u.phone, u.company,
@@ -39,7 +38,6 @@ export const getAllUsers = async (req, res) => {
         res.json(formattedData);
     });
 }
-5
 export const getUser = async (req, res) => {
   const query = `
       SELECT u.*, s.name AS skill_name, us.rating
