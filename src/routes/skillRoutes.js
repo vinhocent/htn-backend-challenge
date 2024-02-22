@@ -1,14 +1,14 @@
 import express from 'express'
-// import { getSkills } from '../../services/skills/skills.service.js'
+import { getSkills } from '../util/skillUtil.js'
 
 const skillsRouter = express.Router()
 
-skillsRouter.use((req, res, next) => {
-  console.log('Time: ', Date.now())
-  next()
-})
+// skillsRouter.use((req, res, next) => {
+//   console.log('Time: ', Date.now())
+//   next()
+// })
 
 // define each route here
-// skillsRouter.get('/', getSkills)
+skillsRouter.get('/', getSkills)
 
 export default skillsRouter

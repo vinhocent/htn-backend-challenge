@@ -39,7 +39,7 @@ export const getAllUsers = async (req, res) => {
         res.json(formattedData);
     });
 }
-
+5
 export const getUser = async (req, res) => {
   const query = `
       SELECT u.*, s.name AS skill_name, us.rating
