@@ -50,7 +50,7 @@ export const getUser = async (req, res) => {
   `;
 
     // Execute the query
-    db.all(query, [req.params.userId], (err, rows) => {
+    db.all(query, [req.params.userID], (err, rows) => {
         if (err) {
             console.error('Error retrieving users with skills:', err);
             res.status(500).send('Internal Server Error');
@@ -59,9 +59,8 @@ export const getUser = async (req, res) => {
 
 
         if (rows.length === 0) {
-            // res.status(404).send('Data not found for the specified user');
+            res.status(404).send('Data not found for the specified user');
 
-            res.json(req.params.userId);
             return;
         }
 
