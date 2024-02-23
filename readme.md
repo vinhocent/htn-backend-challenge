@@ -1,5 +1,11 @@
 # Hack the North 2023 Backend Challenge
 
+## Running this Server
+
+- Make sure you have docker and docker-compose on your machine
+- Navigate to the project's directory
+- run `docker-compose up`
+
 ## Directories
 - Our skill and user routes in `routes`
 - Our database defined in `database/db.js`
@@ -19,3 +25,4 @@ I went with three tables for my database, one for users, one for skills and fina
 ## Improvements
 
 Given more time to work on this, I would love to expand it into the rest of the endpoints
+`
